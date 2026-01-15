@@ -1,0 +1,111 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "./pb";
+
+service UserService {
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  rpc Login(LoginRequest) returns (LoginResponse);
+  rpc Refresh(RefreshRequest) returns (RefreshResponse);
+  
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
+  
+  rpc AddAddress(AddAddressRequest) returns (AddAddressResponse);
+  rpc GetAddresses(GetAddressesRequest) returns (GetAddressesResponse);
+}
+
+message RegisterRequest {
+  string email = 1;
+  string password = 2;
+  string name = 3;
+  string phone = 4;
+  string role = 5;
+}
+
+message RegisterResponse {
+  string user_id = 1;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string accessToken = 1;
+  string refreshToken = 2;
+  User user = 3;
+}
+
+message RefreshRequest {
+  string refreshToken = 1;
+}
+
+message RefreshResponse {
+  string accessToken = 1;
+  string refreshToken = 2;
+}
+
+message GetUserRequest {
+  string user_id = 1;
+}
+
+message GetUserResponse {
+  User user = 1;
+}
+
+message UpdateUserRequest {
+  string user_id = 1;
+  string name = 2;
+  string phone = 3;
+}
+
+message UpdateUserResponse {
+  User user = 1;
+}
+
+
+message AddAddressRequest {
+  string user_id = 1;
+  string street = 2;
+  string city = 3;
+  string postal_code = 4;
+  double latitude = 5;
+  double longitude = 6;
+  bool is_default = 7;
+}
+
+message AddAddressResponse {
+  string address_id = 1;
+}
+
+message GetAddressesRequest {
+  string user_id = 1;
+}
+
+message GetAddressesResponse {
+  repeated Address addresses = 1;
+}
+
+message User {
+  string id = 1;
+  string email = 2;
+  string name = 3;
+  string phone = 4;
+  string role = 5;
+  string created_at = 6;
+}
+
+message Address {
+  string id = 1;
+  string user_id = 2;
+  string street = 3;
+  string city = 4;
+  string postal_code = 5;
+  double latitude = 6;
+  double longitude = 7;
+  bool is_default = 8;
+  string created_at = 9;
+}

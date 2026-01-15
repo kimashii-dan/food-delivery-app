@@ -1,0 +1,9 @@
+go 1.25.5
+
+use (
+	./api
+	./services/delivery-service
+	./services/order-service
+	./services/restaurant-service
+	./services/user-service
+)
