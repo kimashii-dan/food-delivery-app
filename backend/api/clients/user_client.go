@@ -3,7 +3,7 @@ package clients
 import (
 	"log"
 
-	"github.com/kimashii-dan/food-delivery-app/services/user-service/pb"
+	"github.com/kimashii-dan/food-delivery-app/backend/services/user-service/pb"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )

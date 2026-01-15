@@ -1,4 +1,4 @@
-module github.com/kimashii-dan/food-delivery-app/services/delivery-service
+module github.com/kimashii-dan/food-delivery-app/backend/services/delivery-service
 
 go 1.25.5
 

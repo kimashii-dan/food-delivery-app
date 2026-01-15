@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/kimashii-dan/food-delivery-app/api/domain"
-	"github.com/kimashii-dan/food-delivery-app/services/user-service/pb"
+	"github.com/kimashii-dan/food-delivery-app/backend/api/domain"
+	"github.com/kimashii-dan/food-delivery-app/backend/services/user-service/pb"
 )
 
 type UserHandler struct {

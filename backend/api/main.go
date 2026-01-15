@@ -6,8 +6,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"github.com/kimashii-dan/food-delivery-app/api/clients"
-	"github.com/kimashii-dan/food-delivery-app/api/handlers"
+	"github.com/kimashii-dan/food-delivery-app/backend/api/clients"
+	"github.com/kimashii-dan/food-delivery-app/backend/api/handlers"
 )
 
 func main() {

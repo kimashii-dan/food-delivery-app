@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/kimashii-dan/food-delivery-app/services/user-service/pb"
-	"github.com/kimashii-dan/food-delivery-app/services/user-service/repository"
+	"github.com/kimashii-dan/food-delivery-app/backend/services/user-service/pb"
+	"github.com/kimashii-dan/food-delivery-app/backend/services/user-service/repository"
 	"golang.org/x/crypto/bcrypt"
 )
 

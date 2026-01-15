@@ -1,4 +1,4 @@
-module github.com/kimashii-dan/food-delivery-app/api
+module github.com/kimashii-dan/food-delivery-app/backend/api
 
 go 1.25.5
 
@@ -23,7 +23,7 @@ require (
 	github.com/goccy/go-yaml v1.18.0 // indirect
 	github.com/joho/godotenv v1.5.1
 	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/kimashii-dan/food-delivery-app/services/user-service v0.0.0
+	github.com/kimashii-dan/food-delivery-app/backend/services/user-service v0.0.0
 	github.com/klauspost/cpuid/v2 v2.3.0 // indirect
 	github.com/leodido/go-urn v1.4.0 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
@@ -47,4 +47,4 @@ require (
 	google.golang.org/protobuf v1.36.10 // indirect
 )
 
-replace github.com/kimashii-dan/food-delivery-app/services/user-service => ../services/user-service
+replace github.com/kimashii-dan/food-delivery-app/backend/services/user-service => ../services/user-service
