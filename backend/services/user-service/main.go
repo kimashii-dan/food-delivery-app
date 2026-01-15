@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
+	"github.com/kimashii-dan/food-delivery-app/backend/pkg"
 	"github.com/kimashii-dan/food-delivery-app/backend/services/user-service/pb"
 	"github.com/kimashii-dan/food-delivery-app/backend/services/user-service/repository"
 	"github.com/kimashii-dan/food-delivery-app/backend/services/user-service/service"
@@ -29,8 +30,7 @@ func main() {
 	addressRepo := repository.NewAddressRepository(db)
 
 	jwtSecret := os.Getenv("JWT_SECRET")
-
-	jwtService := service.NewJWTService(jwtSecret)
+	jwtService := pkg.NewJWTService(jwtSecret)
 	userService := service.NewUserService(userRepo, addressRepo, jwtService)
 
 	port := os.Getenv("PORT")

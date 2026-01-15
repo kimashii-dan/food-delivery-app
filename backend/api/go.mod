@@ -6,6 +6,7 @@ require github.com/gin-gonic/gin v1.11.0
 
 require (
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
+	github.com/golang-jwt/jwt/v5 v5.3.0 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20251029180050-ab9386a59fda // indirect
 )
@@ -23,6 +24,7 @@ require (
 	github.com/goccy/go-yaml v1.18.0 // indirect
 	github.com/joho/godotenv v1.5.1
 	github.com/json-iterator/go v1.1.12 // indirect
+	github.com/kimashii-dan/food-delivery-app/backend/pkg v0.0.0
 	github.com/kimashii-dan/food-delivery-app/backend/services/user-service v0.0.0
 	github.com/klauspost/cpuid/v2 v2.3.0 // indirect
 	github.com/leodido/go-urn v1.4.0 // indirect
@@ -46,5 +48,7 @@ require (
 	google.golang.org/grpc v1.78.0
 	google.golang.org/protobuf v1.36.10 // indirect
 )
+
+replace github.com/kimashii-dan/food-delivery-app/backend/pkg => ../pkg
 
 replace github.com/kimashii-dan/food-delivery-app/backend/services/user-service => ../services/user-service

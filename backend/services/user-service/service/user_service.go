@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/kimashii-dan/food-delivery-app/backend/pkg"
 	"github.com/kimashii-dan/food-delivery-app/backend/services/user-service/pb"
 	"github.com/kimashii-dan/food-delivery-app/backend/services/user-service/repository"
 	"golang.org/x/crypto/bcrypt"
@@ -15,10 +16,10 @@ type UserService struct {
 	pb.UnimplementedUserServiceServer
 	userRepo    *repository.UserRepository
 	addressRepo *repository.AddressRepository
-	jwtService  *JWTService
+	jwtService  *pkg.JWTService
 }
 
-func NewUserService(userRepo *repository.UserRepository, addressRepo *repository.AddressRepository, jwtService *JWTService) *UserService {
+func NewUserService(userRepo *repository.UserRepository, addressRepo *repository.AddressRepository, jwtService *pkg.JWTService) *UserService {
 	return &UserService{
 		userRepo:    userRepo,
 		addressRepo: addressRepo,

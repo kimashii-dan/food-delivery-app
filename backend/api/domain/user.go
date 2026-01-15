@@ -34,3 +34,36 @@ type LoginResponse struct {
 type RefreshResponse struct {
 	AccessToken string `json:"access_token"`
 }
+
+type GetUserResponse struct {
+	User *User
+}
+
+type Address struct {
+	ID         string  `json:"id"`
+	UserID     string  `json:"user_id"`
+	Street     string  `json:"street"`
+	City       string  `json:"city"`
+	PostalCode string  `json:"postal_code"`
+	Latitude   float64 `json:"latitude"`
+	Longitude  float64 `json:"longitude"`
+	IsDefault  bool    `json:"isDefault"`
+	CreatedAt  string  `json:"created_at"`
+}
+
+type AddAddressRequest struct {
+	Street     string  `json:"street" binding:"required"`
+	City       string  `json:"city" binding:"required"`
+	PostalCode string  `json:"postal_code" binding:"required"`
+	Latitude   float64 `json:"latitude" binding:"required"`
+	Longitude  float64 `json:"longitude" binding:"required"`
+	IsDefault  bool    `json:"isDefault" binding:"required"`
+}
+
+type AddAddressResponse struct {
+	AddressId string `json:"address_id"`
+}
+
+type GetAddressesResponse struct {
+	Addresses []*Address
+}

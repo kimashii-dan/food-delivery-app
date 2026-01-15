@@ -2,6 +2,7 @@ go 1.25.5
 
 use (
 	./api
+	./pkg
 	./services/delivery-service
 	./services/order-service
 	./services/restaurant-service

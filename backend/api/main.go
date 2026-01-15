@@ -8,6 +8,8 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/kimashii-dan/food-delivery-app/backend/api/clients"
 	"github.com/kimashii-dan/food-delivery-app/backend/api/handlers"
+	"github.com/kimashii-dan/food-delivery-app/backend/api/middleware"
+	"github.com/kimashii-dan/food-delivery-app/backend/pkg"
 )
 
 func main() {
@@ -27,6 +29,9 @@ func main() {
 	// init default web server
 	r := gin.Default()
 
+	jwtSecret := os.Getenv("JWT_SECRET")
+	jwtService := pkg.NewJWTService(jwtSecret)
+
 	// api endpoints
 	api := r.Group("/api")
 	{
@@ -35,6 +40,9 @@ func main() {
 			users.POST("/register", userHandler.Register)
 			users.POST("/login", userHandler.Login)
 			users.POST("/refresh", userHandler.Refresh)
+			users.GET("/me", middleware.CheckAuth(jwtService), userHandler.GetUser)
+			users.POST("/addresses", middleware.CheckAuth(jwtService), userHandler.AddAddress)
+			users.GET("/addresses", middleware.CheckAuth(jwtService), userHandler.GetAddresses)
 		}
 	}
 
