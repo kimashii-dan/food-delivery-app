@@ -65,17 +65,26 @@ func (h *UserHandler) Login(c *gin.Context) {
 	}
 
 	c.SetCookie(
-		"refreshToken",
-		grpcResp.RefreshToken,
-		5*24*60*60,
+		"accessToken",
+		grpcResp.AccessToken,
+		15*60,
 		"/",
 		"",
 		false,
 		true,
 	)
 
+	c.SetCookie(
+		"refreshToken",
+		grpcResp.RefreshToken,
+		5*24*60*60,
+		"/api/users/refresh",
+		"",
+		false,
+		true,
+	)
+
 	c.JSON(http.StatusOK, domain.LoginResponse{
-		AccessToken: grpcResp.AccessToken,
 		User: domain.User{
 			Id:        grpcResp.User.Id,
 			Email:     grpcResp.User.Email,
@@ -100,23 +109,41 @@ func (h *UserHandler) Refresh(c *gin.Context) {
 	}
 	grpcResp, err := h.userClient.Refresh(c.Request.Context(), grpcReq)
 	if err != nil {
+		c.SetCookie("accessToken", "", -1, "/", "", false, true)
+		c.SetCookie("refreshToken", "", -1, "/api/users/refresh", "", false, true)
+
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid or expired refresh token"})
 		return
 	}
 
 	c.SetCookie(
-		"refreshToken",
-		grpcResp.RefreshToken,
-		5*24*60*60,
+		"accessToken",
+		grpcResp.AccessToken,
+		15*60,
 		"/",
 		"",
 		false,
 		true,
 	)
 
-	c.JSON(http.StatusOK, domain.RefreshResponse{
-		AccessToken: grpcResp.AccessToken,
-	})
+	c.SetCookie(
+		"refreshToken",
+		grpcResp.RefreshToken,
+		5*24*60*60,
+		"/api/users/refresh",
+		"",
+		false,
+		true,
+	)
+
+	c.Status(http.StatusOK)
+}
+
+func (h *UserHandler) Logout(c *gin.Context) {
+	c.SetCookie("accessToken", "", -1, "/", "", false, true)
+	c.SetCookie("refreshToken", "", -1, "/api/users/refresh", "", false, true)
+
+	c.Status(http.StatusOK)
 }
 
 func (h *UserHandler) GetUser(c *gin.Context) {

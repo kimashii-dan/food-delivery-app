@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"net/http"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/kimashii-dan/food-delivery-app/backend/pkg"
@@ -10,20 +9,12 @@ import (
 
 func CheckAuth(jwtService *pkg.JWTService) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		authHeader := c.GetHeader("Authorization")
-		if authHeader == "" {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "missing Authorization header"})
+		tokenStr, err := c.Cookie("accessToken")
+		if err != nil {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "access token not found"})
 			c.Abort()
 			return
 		}
-
-		if !strings.HasPrefix(authHeader, "Bearer ") {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid Authorization format"})
-			c.Abort()
-			return
-		}
-
-		tokenStr := strings.TrimPrefix(authHeader, "Bearer ")
 
 		claims, err := jwtService.ValidateToken(tokenStr)
 		if err != nil {

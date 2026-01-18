@@ -1,0 +1,140 @@
+syntax = "proto3";
+
+package restaurant;
+
+option go_package = "./pb";
+
+service RestaurantService {
+  rpc GetRestaurants(GetRestaurantsRequest) returns (GetRestaurantsResponse);
+  rpc GetRestaurant(GetRestaurantRequest) returns (GetRestaurantResponse);
+
+  rpc GetMenu(GetMenuRequest) returns (GetMenuResponse);
+  rpc GetMenuItem(GetMenuItemRequest) returns (GetMenuItemResponse);
+
+  rpc GetRestaurantStatus(GetRestaurantStatusRequest) returns (GetRestaurantStatusResponse);
+  rpc ValidateMenuItems(ValidateMenuItemsRequest) returns (ValidateMenuItemsResponse);
+}
+
+// Messages
+message Restaurant {
+    string id = 1;
+    string name = 3;
+    string description = 4;
+    string address = 5;
+    string phone = 6;
+    double latitude = 7;
+    double longitude = 8;
+    bool is_open = 9;
+    string opening_time = 10;
+    string closing_time = 11;
+    string created_at = 12;
+    string updated_at = 13;
+}
+
+message MenuItem {
+    string id = 1;
+    string restaurant_id = 2;
+    string name = 3;
+    string description = 4;
+    double price = 5;
+    string image_url = 6;
+    bool is_available = 7;
+    string category = 8;
+    string created_at = 9;
+    string updated_at = 10;
+}
+
+message GetRestaurantsRequest {
+    int32 page = 1;
+    optional double latitude = 2;
+    optional double longitude = 3;
+}
+
+message GetRestaurantsResponse {
+    repeated Restaurant restaurants = 1;
+    int32 total = 2;
+}
+
+message GetRestaurantRequest {
+    string id = 1;
+}
+
+message GetRestaurantResponse {
+    Restaurant restaurant = 1;
+}
+
+message GetMenuRequest {
+    string restaurant_id = 1;
+}
+
+message GetMenuResponse {
+    repeated MenuItem items = 1;
+}
+
+message GetMenuItemRequest {
+    string id = 1;
+}
+
+message GetMenuItemResponse {
+    MenuItem item = 1;
+}
+
+// GetRestaurantStatus - Check if restaurant is open and accepting orders
+message GetRestaurantStatusRequest {
+    string restaurant_id = 1;
+}
+
+message GetRestaurantStatusResponse {
+    bool is_open = 1;
+    bool is_accepting_orders = 2;
+    string opening_time = 3;
+    string closing_time = 4;
+}
+
+// ValidateMenuItems - Validate multiple items are available (for order validation)
+message ValidateMenuItemsRequest {
+    string restaurant_id = 1;
+    repeated string item_ids = 2;
+}
+
+message MenuItemValidation {
+    string item_id = 1;
+    bool is_available = 2;
+    string name = 4;
+}
+
+message ValidateMenuItemsResponse {
+    bool all_available = 1;
+    repeated MenuItemValidation items = 2;
+    repeated string unavailable_items = 3;
+}
+
+    // restaurants (
+    //     id              UUID PRIMARY KEY,
+    //     owner_id        UUID NOT NULL,
+    //     name            VARCHAR(255) NOT NULL,
+    //     description     TEXT,
+    //     address         VARCHAR(255) NOT NULL,
+    //     phone           VARCHAR(20) NOT NULL,
+    //     latitude        DECIMAL(10,8) NOT NULL,
+    //     longitude       DECIMAL(11,8) NOT NULL,
+    //     is_open         BOOLEAN DEFAULT TRUE,
+    //     opening_time    TIME,
+    //     closing_time    TIME,
+    //     created_at      TIMESTAMP DEFAULT NOW(),
+    //     updated_at      TIMESTAMP DEFAULT NOW()
+    // );
+    
+    // menu_items (
+    //     id              UUID PRIMARY KEY,
+    //     restaurant_id   UUID NOT NULL REFERENCES restaurants(id),
+    //     name            VARCHAR(255) NOT NULL,
+    //     description     TEXT,
+    //     price           DECIMAL(10,2) NOT NULL,
+    //     image_url       VARCHAR(500),
+    //     is_available    BOOLEAN DEFAULT TRUE,
+    //     category        VARCHAR(50),
+    //     created_at      TIMESTAMP DEFAULT NOW(),
+    //     updated_at      TIMESTAMP DEFAULT NOW()
+    // );
+    

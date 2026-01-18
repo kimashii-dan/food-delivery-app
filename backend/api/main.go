@@ -3,7 +3,9 @@ package main
 import (
 	"log"
 	"os"
+	"time"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"github.com/kimashii-dan/food-delivery-app/backend/api/clients"
@@ -32,6 +34,17 @@ func main() {
 	jwtSecret := os.Getenv("JWT_SECRET")
 	jwtService := pkg.NewJWTService(jwtSecret)
 
+	r.MaxMultipartMemory = 8 << 20
+
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:5173", "http://localhost:4173"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
+
 	// api endpoints
 	api := r.Group("/api")
 	{
@@ -39,6 +52,7 @@ func main() {
 		{
 			users.POST("/register", userHandler.Register)
 			users.POST("/login", userHandler.Login)
+			users.POST("/logout", userHandler.Logout)
 			users.POST("/refresh", userHandler.Refresh)
 			users.GET("/me", middleware.CheckAuth(jwtService), userHandler.GetUser)
 			users.POST("/addresses", middleware.CheckAuth(jwtService), userHandler.AddAddress)

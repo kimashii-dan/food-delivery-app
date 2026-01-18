@@ -27,16 +27,11 @@ type LoginRequest struct {
 }
 
 type LoginResponse struct {
-	AccessToken string `json:"access_token"`
-	User        User   `json:"user"`
-}
-
-type RefreshResponse struct {
-	AccessToken string `json:"access_token"`
+	User User `json:"user"`
 }
 
 type GetUserResponse struct {
-	User *User
+	User *User `json:"user"`
 }
 
 type Address struct {
@@ -47,7 +42,7 @@ type Address struct {
 	PostalCode string  `json:"postal_code"`
 	Latitude   float64 `json:"latitude"`
 	Longitude  float64 `json:"longitude"`
-	IsDefault  bool    `json:"isDefault"`
+	IsDefault  bool    `json:"is_default"`
 	CreatedAt  string  `json:"created_at"`
 }
 
@@ -57,7 +52,7 @@ type AddAddressRequest struct {
 	PostalCode string  `json:"postal_code" binding:"required"`
 	Latitude   float64 `json:"latitude" binding:"required"`
 	Longitude  float64 `json:"longitude" binding:"required"`
-	IsDefault  bool    `json:"isDefault" binding:"required"`
+	IsDefault  bool    `json:"is_default" binding:"required"`
 }
 
 type AddAddressResponse struct {
@@ -65,5 +60,5 @@ type AddAddressResponse struct {
 }
 
 type GetAddressesResponse struct {
-	Addresses []*Address
+	Addresses []*Address `json:"addresses"`
 }
