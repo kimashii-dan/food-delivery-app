@@ -1,4 +1,4 @@
-import { api } from '@/lib/axios'
+import { api } from '@/shared/lib/axios'
 import type { User } from './types'
 
 type GetMeResponse = {

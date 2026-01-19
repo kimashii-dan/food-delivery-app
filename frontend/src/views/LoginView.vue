@@ -1,7 +1,11 @@
 <template>
-  <div>
-    <h1>Login</h1>
-    <form>
+  <div class="auth-page">
+    <form class="form">
+      <div class="">
+        <h1 class="title">Login</h1>
+        <p class="description">Welcome back! Please sign in to continue.</p>
+      </div>
+
       <div class="form-field">
         <label for="email">Email</label>
         <input id="email" v-model="email" type="email" placeholder="Enter your email" />
@@ -12,6 +16,8 @@
       </div>
 
       <button type="button" @click="submit">Submit</button>
+
+      <RouterLink class="no-account" to="/register">Don't have an account yet?</RouterLink>
     </form>
   </div>
 </template>
@@ -45,17 +51,36 @@ const submit = async () => {
 
 <style scoped>
 p {
-  color: #42b983;
-}
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  color: var(--primary);
 }
 
 .form-field {
   display: flex;
   gap: 8px;
   flex-direction: column;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 24px;
+  border-radius: 12px;
+  background-color: var(--bg-light);
+  border: 1px solid var(--border);
+  width: 384px;
+}
+
+.title {
+  margin: 8px 0;
+}
+
+.description {
+  margin: 0;
+}
+
+.no-account {
+  color: var(--info);
+  text-decoration: underline;
 }
 </style>

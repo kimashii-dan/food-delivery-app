@@ -78,7 +78,7 @@ func (h *UserHandler) Login(c *gin.Context) {
 		"refreshToken",
 		grpcResp.RefreshToken,
 		5*24*60*60,
-		"/api/users/refresh",
+		"/",
 		"",
 		false,
 		true,
@@ -110,7 +110,7 @@ func (h *UserHandler) Refresh(c *gin.Context) {
 	grpcResp, err := h.userClient.Refresh(c.Request.Context(), grpcReq)
 	if err != nil {
 		c.SetCookie("accessToken", "", -1, "/", "", false, true)
-		c.SetCookie("refreshToken", "", -1, "/api/users/refresh", "", false, true)
+		c.SetCookie("refreshToken", "", -1, "/", "", false, true)
 
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid or expired refresh token"})
 		return
@@ -130,7 +130,7 @@ func (h *UserHandler) Refresh(c *gin.Context) {
 		"refreshToken",
 		grpcResp.RefreshToken,
 		5*24*60*60,
-		"/api/users/refresh",
+		"/",
 		"",
 		false,
 		true,
@@ -141,7 +141,7 @@ func (h *UserHandler) Refresh(c *gin.Context) {
 
 func (h *UserHandler) Logout(c *gin.Context) {
 	c.SetCookie("accessToken", "", -1, "/", "", false, true)
-	c.SetCookie("refreshToken", "", -1, "/api/users/refresh", "", false, true)
+	c.SetCookie("refreshToken", "", -1, "/", "", false, true)
 
 	c.Status(http.StatusOK)
 }
