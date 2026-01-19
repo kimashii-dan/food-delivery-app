@@ -29,7 +29,7 @@ header {
 
 header nav {
   display: flex;
-  width: 75%;
+  width: 70%;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -98,11 +98,12 @@ h6,
 p {
   margin: 0;
   padding: 0;
+  font-weight: 400;
 }
 
 .page {
   display: flex;
-  max-width: 75%;
+  max-width: 70%;
   width: 100%;
   flex-direction: column;
   gap: 40px;
@@ -120,10 +121,31 @@ p {
 
 .page-title {
   font-size: 48px;
+  font-weight: 600;
 }
 
 .content {
   display: flex;
-  gap: 16px;
+  gap: 48px;
   flex-direction: column;
+}
+
+button.danger {
+  background-color: var(--danger);
+}
+
+.page-subtitle {
+  font-size: 32px;
+}
+
+.modal {
+  position: fixed;
+  inset: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  background-color: rgb(0, 0, 0, 0.5);
+  padding: 1.5rem;
+  backdrop-filter: blur(4px);
 }

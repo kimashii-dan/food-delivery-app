@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import { RouterView, useRoute } from 'vue-router'
-import { storeToRefs } from 'pinia'
 import { useAuthStore } from './modules/auth/auth-store'
 import ToggleTheme from './shared/components/ToggleTheme.vue'
 
 const authStore = useAuthStore()
-
 const route = useRoute()
-
-console.log(route.path)
 </script>
 
 <template>

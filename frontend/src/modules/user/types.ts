@@ -7,4 +7,8 @@ interface User {
   created_at: string
 }
 
-export type { User }
+type GetMeResponse = {
+  user: User
+}
+
+export type { User, GetMeResponse }
