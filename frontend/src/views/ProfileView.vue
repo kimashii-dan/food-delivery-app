@@ -197,7 +197,7 @@ const onLogout = async () => {
 .addresses-section {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 32px;
 }
 
 .titleAndButton {

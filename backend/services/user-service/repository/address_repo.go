@@ -24,6 +24,7 @@ type Address struct {
 	Latitude   float64
 	Longitude  float64
 	IsDefault  bool
+	CreatedAt  string
 }
 
 func (r *AddressRepository) Create(ctx context.Context, address *Address) error {
@@ -54,7 +55,8 @@ func (r *AddressRepository) Create(ctx context.Context, address *Address) error 
 
 func (r *AddressRepository) GetByUserID(ctx context.Context, userID string) ([]*Address, error) {
 	query := `
-        SELECT id, user_id, street, city, postal_code, latitude, longitude, is_default
+        SELECT id, user_id, street, city, postal_code, latitude, longitude, is_default,
+               to_char(created_at, 'YYYY-MM-DD HH24:MI:SS')
         FROM addresses 
         WHERE user_id = $1
         ORDER BY is_default DESC, created_at DESC
@@ -72,6 +74,7 @@ func (r *AddressRepository) GetByUserID(ctx context.Context, userID string) ([]*
 		err := rows.Scan(
 			&addr.ID, &addr.UserID, &addr.Street, &addr.City,
 			&addr.PostalCode, &addr.Latitude, &addr.Longitude, &addr.IsDefault,
+			&addr.CreatedAt,
 		)
 		if err != nil {
 			return nil, fmt.Errorf("failed to scan address: %w", err)

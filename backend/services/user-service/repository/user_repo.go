@@ -22,6 +22,7 @@ type User struct {
 	Name         string
 	Phone        string
 	Role         string
+	CreatedAt    string
 }
 
 func (r *UserRepository) Create(ctx context.Context, user *User) error {
@@ -46,14 +47,15 @@ func (r *UserRepository) GetByID(ctx context.Context, id string) (*User, error) 
 	var user User
 
 	query := `
-        SELECT id, email, password_hash, name, phone, role 
+        SELECT id, email, password_hash, name, phone, role, 
+               to_char(created_at, 'YYYY-MM-DD HH24:MI:SS')
         FROM users 
         WHERE id = $1
     `
 
 	err := r.db.QueryRow(ctx, query, id).Scan(
 		&user.ID, &user.Email, &user.PasswordHash,
-		&user.Name, &user.Phone, &user.Role,
+		&user.Name, &user.Phone, &user.Role, &user.CreatedAt,
 	)
 
 	if err != nil {
@@ -67,14 +69,15 @@ func (r *UserRepository) GetByEmail(ctx context.Context, email string) (*User, e
 	var user User
 
 	query := `
-        SELECT id, email, password_hash, name, phone, role 
+        SELECT id, email, password_hash, name, phone, role, 
+               to_char(created_at, 'YYYY-MM-DD HH24:MI:SS')
         FROM users 
         WHERE email = $1
     `
 
 	err := r.db.QueryRow(ctx, query, email).Scan(
 		&user.ID, &user.Email, &user.PasswordHash,
-		&user.Name, &user.Phone, &user.Role,
+		&user.Name, &user.Phone, &user.Role, &user.CreatedAt,
 	)
 
 	if err != nil {

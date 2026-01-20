@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS restaraunts;
+DROP TABLE IF EXISTS menu_itmes;

@@ -25,8 +25,14 @@ func main() {
 	userClient, userConn := clients.NewUserServiceClient(userServicePort)
 	defer userConn.Close()
 
-	// register user handlers
+	// init grpc connection with restaurant service
+	restaurantServicePort := os.Getenv("RESTAURANT_SERVICE_PORT")
+	restaurantClient, restaurantConn := clients.NewRestaurantServiceClient(restaurantServicePort)
+	defer restaurantConn.Close()
+
+	// register handlers
 	userHandler := handlers.NewUserHandler(userClient)
+	restaurantHandler := handlers.NewRestaurantHandler(restaurantClient)
 
 	// init default web server
 	r := gin.Default()
@@ -57,6 +63,16 @@ func main() {
 			users.GET("/me", middleware.CheckAuth(jwtService), userHandler.GetUser)
 			users.POST("/addresses", middleware.CheckAuth(jwtService), userHandler.AddAddress)
 			users.GET("/addresses", middleware.CheckAuth(jwtService), userHandler.GetAddresses)
+		}
+
+		restaurants := api.Group("/restaurants")
+		{
+			restaurants.GET("", restaurantHandler.GetRestaurants)
+			restaurants.GET("/:id", restaurantHandler.GetRestaurant)
+			restaurants.GET("/:id/menu", restaurantHandler.GetMenu)
+			restaurants.GET("/menu-items/:id", restaurantHandler.GetMenuItem)
+			restaurants.GET("/:id/status", restaurantHandler.GetRestaurantStatus)
+			restaurants.POST("/validate-items", restaurantHandler.ValidateMenuItems)
 		}
 	}
 

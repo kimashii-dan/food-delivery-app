@@ -85,11 +85,12 @@ func (s *UserService) Login(ctx context.Context, req *pb.LoginRequest) (*pb.Logi
 		AccessToken:  accessToken,
 		RefreshToken: refreshToken,
 		User: &pb.User{
-			Id:    user.ID,
-			Email: user.Email,
-			Name:  user.Name,
-			Phone: user.Phone,
-			Role:  user.Role,
+			Id:        user.ID,
+			Email:     user.Email,
+			Name:      user.Name,
+			Phone:     user.Phone,
+			Role:      user.Role,
+			CreatedAt: user.CreatedAt,
 		},
 	}, nil
 }
@@ -127,11 +128,12 @@ func (s *UserService) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.
 
 	return &pb.GetUserResponse{
 		User: &pb.User{
-			Id:    user.ID,
-			Email: user.Email,
-			Name:  user.Name,
-			Phone: user.Phone,
-			Role:  user.Role,
+			Id:        user.ID,
+			Email:     user.Email,
+			Name:      user.Name,
+			Phone:     user.Phone,
+			Role:      user.Role,
+			CreatedAt: user.CreatedAt,
 		},
 	}, nil
 }
@@ -148,11 +150,12 @@ func (s *UserService) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest)
 
 	return &pb.UpdateUserResponse{
 		User: &pb.User{
-			Id:    user.ID,
-			Email: user.Email,
-			Name:  user.Name,
-			Phone: user.Phone,
-			Role:  user.Role,
+			Id:        user.ID,
+			Email:     user.Email,
+			Name:      user.Name,
+			Phone:     user.Phone,
+			Role:      user.Role,
+			CreatedAt: user.CreatedAt,
 		},
 	}, nil
 }
@@ -195,6 +198,7 @@ func (s *UserService) GetAddresses(ctx context.Context, req *pb.GetAddressesRequ
 			Latitude:   addr.Latitude,
 			Longitude:  addr.Longitude,
 			IsDefault:  addr.IsDefault,
+			CreatedAt:  addr.CreatedAt,
 		}
 	}
 
