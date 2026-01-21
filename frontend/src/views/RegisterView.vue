@@ -100,6 +100,7 @@ p {
 
 .title {
   margin: 8px 0;
+  font-weight: 500;
 }
 
 .description {

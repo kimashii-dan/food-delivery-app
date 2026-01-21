@@ -33,7 +33,7 @@
       <div class="addresses-section">
         <div class="titleAndButton">
           <h2 class="page-subtitle">Addresses</h2>
-          <button @click="openAddressForm">Add address</button>
+          <button v-if="addresses.length > 0" @click="openAddressForm">Add address</button>
         </div>
 
         <div v-if="addresses.length > 0" class="addresses-grid">
